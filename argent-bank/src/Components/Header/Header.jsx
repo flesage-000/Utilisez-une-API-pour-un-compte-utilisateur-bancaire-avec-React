@@ -12,12 +12,12 @@ const Nav = () => {
                                   src={argentBankLogo}
                                   alt="Argent Bank Logo"  /><h1 className="sr-only">Argent Bank</h1></NavLink>
         <div>
-          <a  className="main-nav-item"
-              href="./sign-in.html"><i className="fa fa-user-circle"></i>Sign In</a>
-          <a  className="main-nav-item"
-              href="./user.html"><i className="fa fa-user-circle"></i>Tony</a>
-          <a  className="main-nav-item"
-              href="./index.html"><i className="fa fa-sign-out"></i>Sign Out</a>
+          <NavLink  className="main-nav-item"
+                    to="/Signin"><i className="fa fa-user-circle"></i>Sign In</NavLink>
+          <NavLink  className="main-nav-item"
+                    to="/User"><i className="fa fa-user-circle"></i>Tony</NavLink>
+          <NavLink  className="main-nav-item"
+                    href="./index.html"><i className="fa fa-sign-out"></i>Sign Out</NavLink>
         </div>
       </nav>
     </>
