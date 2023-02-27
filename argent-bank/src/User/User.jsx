@@ -1,9 +1,7 @@
 import React from "react";
 
-import Nav from "../../Components/Header/Header";
-import Footer from "../../Components/Footer/Footer";
-
-import argentBankLogo from "./../../Assets/images/argentBankLogo.png";
+import Nav from "../../Components/Header";
+import Footer from "../../Components/Footer";
 
 const User = () => {
   return(

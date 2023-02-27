@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import argentBankLogo from "./../../Assets/images/argentBankLogo.png";
+import argentBankLogo from "./../Assets/images/argentBankLogo.png";
 
 const Nav = () => {
   return (

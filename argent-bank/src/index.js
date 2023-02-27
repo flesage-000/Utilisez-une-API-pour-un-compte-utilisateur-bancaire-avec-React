@@ -10,7 +10,7 @@ import {
 import './index.css';
 
 import Signin from './Pages/Signin/Signin';
-import Home from './Pages/Home/Home';
+import Home from './Home/Home';
 import User from './Pages/User/User';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

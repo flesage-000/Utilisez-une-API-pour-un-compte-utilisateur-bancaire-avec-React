@@ -1,11 +1,11 @@
 import React from "react";
 
-import Nav from "../../Components/Header/Header";
-import Footer from "../../Components/Footer/Footer";
+import Nav from "../Components/Header";
+import Footer from "../Components/Footer";
 
-import iconChat from "./../../Assets/images/icon-chat.png";
-import iconMoney from "./../../Assets/images/icon-money.png";
-import iconSecurity from "./../../Assets/images/icon-security.png";
+import iconChat from "./../Assets/images/icon-chat.png";
+import iconMoney from "./../Assets/images/icon-money.png";
+import iconSecurity from "./../Assets/images/icon-security.png";
 
 const Home = () => {
   return(
