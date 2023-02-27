@@ -1,6 +1,8 @@
 import React from "react";
 
-import argentBankLogo from "./../../Assets/images/argentBankLogo.png";
+import Nav from "../../Components/Header/Header";
+import Footer from "../../Components/Footer/Footer";
+
 import iconChat from "./../../Assets/images/icon-chat.png";
 import iconMoney from "./../../Assets/images/icon-money.png";
 import iconSecurity from "./../../Assets/images/icon-security.png";
@@ -8,16 +10,9 @@ import iconSecurity from "./../../Assets/images/icon-security.png";
 const Home = () => {
   return(
     <>
-      <nav class="main-nav">
-        <a  class="main-nav-logo"
-            href="./index.html"><img  class="main-nav-logo-image"
-                                      src={argentBankLogo}
-                                      alt="Argent Bank Logo"  /><h1 class="sr-only">Argent Bank</h1></a>
-        <div>
-          <a  class="main-nav-item"
-              href="./sign-in.html"><i class="fa fa-user-circle"></i>Sign In</a>
-        </div>
-      </nav>
+
+      <Nav />
+
       <main>
         <div class="hero">
           <section class="hero-content">
@@ -69,11 +64,9 @@ const Home = () => {
           </div>
         </section>
       </main>
-      <footer class="footer">
-        <p class="footer-text">
-          Copyright 2020 Argent Bank
-        </p>
-      </footer>
+
+      <Footer />
+
     </>
   )
 }
