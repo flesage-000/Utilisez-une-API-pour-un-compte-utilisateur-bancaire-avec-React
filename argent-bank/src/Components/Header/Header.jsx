@@ -1,22 +1,23 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import argentBankLogo from "./../../Assets/images/argentBankLogo.png";
 
 const Nav = () => {
   return (
     <>
-      <nav class="main-nav">
-        <a  class="main-nav-logo"
-            href="./index.html"><img  class="main-nav-logo-image"
-                                      src={argentBankLogo}
-                                      alt="Argent Bank Logo"  /><h1 class="sr-only">Argent Bank</h1></a>
+      <nav className="main-nav">
+        <NavLink  className="main-nav-logo"
+                  to="/"><img className="main-nav-logo-image"
+                                  src={argentBankLogo}
+                                  alt="Argent Bank Logo"  /><h1 className="sr-only">Argent Bank</h1></NavLink>
         <div>
-          <a  class="main-nav-item"
-              href="./sign-in.html"><i class="fa fa-user-circle"></i>Sign In</a>
-          <a  class="main-nav-item"
-              href="./user.html"><i class="fa fa-user-circle"></i>Tony</a>
-          <a  class="main-nav-item"
-              href="./index.html"><i class="fa fa-sign-out"></i>Sign Out</a>
+          <a  className="main-nav-item"
+              href="./sign-in.html"><i className="fa fa-user-circle"></i>Sign In</a>
+          <a  className="main-nav-item"
+              href="./user.html"><i className="fa fa-user-circle"></i>Tony</a>
+          <a  className="main-nav-item"
+              href="./index.html"><i className="fa fa-sign-out"></i>Sign Out</a>
         </div>
       </nav>
     </>
