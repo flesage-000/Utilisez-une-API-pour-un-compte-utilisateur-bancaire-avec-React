@@ -1,7 +1,7 @@
 import React from "react";
 
-import Nav from "../../Components/Header";
-import Footer from "../../Components/Footer";
+import Nav from "../Components/Header";
+import Footer from "../Components/Footer";
 
 const User = () => {
   return(

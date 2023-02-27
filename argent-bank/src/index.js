@@ -9,9 +9,9 @@ import {
 
 import './index.css';
 
-import Signin from './Pages/Signin/Signin';
+import Signin from './Signin/Signin';
 import Home from './Home/Home';
-import User from './Pages/User/User';
+import User from './User/User';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

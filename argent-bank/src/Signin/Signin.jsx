@@ -1,9 +1,18 @@
 import React from "react";
 
-import Nav from "../../Components/Header";
-import Footer from "../../Components/Footer";
+import Nav from "../Components/Header";
+import Footer from "../Components/Footer";
 
 const Signin = () => {
+  const login = (event) => {
+    event.preventDefault()
+
+    const userName = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const rememberMe = document.getElementById('remember-me').checked;
+
+  }
+
   return (
     <>
 
@@ -27,7 +36,8 @@ const Signin = () => {
               <label htmlFor="remember-me">Remember me</label>
             </div>
             {/* PLACEHOLDER DUE TO STATIC SITE */}
-            <a href="./user.html" className="sign-in-button">Sign In</a>
+            <button className="sign-in-button"
+                    onClick={login}>Sign In</button>
             {/* SHOULD BE THE BUTTON BELOW */}
             {/* <button className="sign-in-button">Sign In</button> */}
             {/*  */}
