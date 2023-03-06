@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { useEffect, useSelector } from "react-redux";
+import { useDispatch, useEffect, useSelector } from "react-redux";
 
-import { getlastName } from "../_Services/lastName";
+import { getFirstName } from "../_Services/firstName";
+import { getLastName } from "../_Services/lastName";
+import { getToken } from "../_Services/token";
+import { setProfile } from "../_Services/user";
 
 import Nav from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -9,12 +12,21 @@ import Footer from "../Components/Footer";
 const User = () => {
   const [editionName, setEditionName] = useState(false);
   const firstName = useSelector((state) => state.firstName.value);
+  const [firstNameEdit, setFirstNameEdit] = useState(firstName);
   const lastName = useSelector((state) => state.lastName.value);
-  const editName = () => {
-    setEditionName(true);
-  }
-  const editNameCancel = () => {
-    setEditionName(false);
+  const [lastNameEdit, setLastNameEdit] = useState(lastName);
+  const token = useSelector((state) => state.token.value);
+
+  const editName = () => { setEditionName(true); }
+  const editProfileCancel = () => { setEditionName(false); }
+
+  const dispatch = useDispatch();
+  const editProfileSave = () => {
+    if (firstNameEdit || lastNameEdit) {
+      setProfile(token, firstNameEdit, lastNameEdit);
+      dispatch(getFirstName(firstNameEdit))
+      dispatch(getLastName(lastNameEdit))
+    }
   }
 
   return(
@@ -24,31 +36,34 @@ const User = () => {
 
       <main className="main bg-dark">
         <div className="header">
-          <h1>Welcome back<br />{firstName} {lastName}!</h1>
+          <h1>Welcome back{ !editionName && <><br />{firstName} {lastName}!</>}</h1>
+          { !editionName &&
+            <button className="edit-button"
+                    onClick={editName}>Edit Name</button>
+          }
           { editionName &&
             <>
               <form>
                 <div  className="input-wrapper">
                   <input  type="text"
                           id="firstName"
-                          placeholder={firstName}
-                          required />
+                          onChange={e => setFirstNameEdit(e.target.value)}
+                          required
+                          placeholder={firstName} />
                   <input  type="text"
                           id="lastName"
-                          placeholder={lastName}
-                          required />
+                          onChange={e => setLastNameEdit(e.target.value)}
+                          required
+                          placeholder={lastName} />
                 </div>
                 <div  className="input-wrapper">
-                  <button className="save-button">Save</button>
+                  <button className="save-button"
+                          onClick={editProfileSave}>Save</button>
                   <button className="cancel-button"
-                          onClick={editNameCancel}>Cancel</button>
+                          onClick={editProfileCancel}>Cancel</button>
                 </div>
               </form>
             </>
-          }
-          { !editionName &&
-            <button className="edit-button"
-                    onClick={editName}>Edit Name</button>
           }
         </div>
         <h2 className="sr-only">Accounts</h2>
