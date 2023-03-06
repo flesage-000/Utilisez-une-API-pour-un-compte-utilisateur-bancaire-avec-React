@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getToken } from "../_Services/token";
+import { getLoginFetch } from "../_Services/user";
+import { getFirstName } from "../_Services/firstname";
 
 import argentBankLogo from "./../Assets/images/argentBankLogo.png";
 
 const Nav = () => {
+  const firstName = useSelector((state) => state.firstName.value);
+  const token = useSelector((state) => state.token.value);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (token === localStorage.getItem("token")) {
+      dispatch(getToken(localStorage.getItem("token")));
+      const user = getLoginFetch(token);
+      user.then(obj => {
+        dispatch(getFirstName(obj.firstName));
+      })
+    }
+  })
+
   return (
     <>
       <nav className="main-nav">
@@ -12,12 +31,20 @@ const Nav = () => {
                                   src={argentBankLogo}
                                   alt="Argent Bank Logo"  /><h1 className="sr-only">Argent Bank</h1></NavLink>
         <div>
-          <NavLink  className="main-nav-item"
-                    to="/Signin"><i className="fa fa-user-circle"></i>Sign In</NavLink>
-          <NavLink  className="main-nav-item"
-                    to="/User"><i className="fa fa-user-circle"></i>Tony</NavLink>
-          <NavLink  className="main-nav-item"
-                    href="./index.html"><i className="fa fa-sign-out"></i>Sign Out</NavLink>
+          { token === null &&
+            <>
+              <NavLink  className="main-nav-item"
+                        to="/Signin"><i className="fa fa-user-circle"></i>Sign In</NavLink>
+            </>
+          }
+          { token !== null &&
+            <>
+              <NavLink  className="main-nav-item"
+                        to="/User"><i className="fa fa-user-circle"></i>{firstName}</NavLink>
+              <NavLink  className="main-nav-item"
+                        href="./index.html"><i className="fa fa-sign-out"></i>Sign Out</NavLink>
+            </>
+          }
         </div>
       </nav>
     </>

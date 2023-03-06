@@ -6,6 +6,8 @@ import {
   Route,
   Routes
 } from "react-router-dom";
+import store from "./_Services/store"
+import { Provider } from "react-redux";
 
 import './index.css';
 
@@ -16,18 +18,20 @@ import User from './User/User';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <div className="app">
-      <BrowserRouter>
-        <Routes>
-          <Route  path="/"
-                  element={<Home />} />
-          <Route  path="/Signin"
-                  element={<Signin />} />
-          <Route  path="/User"
-                  element={<User />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <Provider store={store}>
+      <div className="app">
+        <BrowserRouter>
+          <Routes>
+            <Route  path="/"
+                    element={<Home />} />
+            <Route  path="/Signin"
+                    element={<Signin />} />
+            <Route  path="/User"
+                    element={<User />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </Provider>
   </React.StrictMode>
 );
 
