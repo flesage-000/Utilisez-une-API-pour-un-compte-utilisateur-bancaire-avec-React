@@ -10,6 +10,7 @@ const Signin = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const parseJwt = (token) => {
+    // Tutorial => https://www.bezkoder.com/handle-jwt-token-expiration-react/
     try {
       return JSON.parse(atob(token.split(".")[1]));
     } catch (e) {
@@ -25,10 +26,10 @@ const Signin = () => {
 
     const loginStatus = getLogin({'email': email, 'password': password});
     loginStatus.then(obj => {
-      if (obj.status == 200) { console.log("obj", obj, parseJwt(obj.token));
+      if (obj.status == 200) {
         localStorage.setItem('email', email);
         localStorage.setItem('token', obj.token);
-        localStorage.setItem('token_expiration', parseJwt(obj.token));
+        localStorage.setItem('token_expiration', parseJwt(obj.token).exp);
         localStorage.setItem('rememberMe', rememberMe);
       } else {
         console.log("Pas connecté !")
