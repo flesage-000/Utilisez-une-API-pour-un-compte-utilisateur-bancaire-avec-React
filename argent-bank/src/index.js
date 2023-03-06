@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import './index.css';
 
 import Signin from './Signin/Signin';
+import SignOut from './signOut/signOut';
 import Home from './Home/Home';
 import User from './User/User';
 
@@ -24,10 +25,12 @@ root.render(
           <Routes>
             <Route  path="/"
                     element={<Home />} />
-            <Route  path="/Signin"
+            <Route  path="/SignIn"
                     element={<Signin />} />
             <Route  path="/User"
                     element={<User />} />
+            <Route  path="/SignOut"
+                    element={<SignOut />} />
           </Routes>
         </BrowserRouter>
       </div>

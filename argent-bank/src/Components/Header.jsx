@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getToken } from "../_Services/token";
@@ -11,8 +11,9 @@ import argentBankLogo from "./../Assets/images/argentBankLogo.png";
 const Nav = () => {
   const firstName = useSelector((state) => state.firstName.value);
   const token = useSelector((state) => state.token.value);
-
+  const location = useLocation().pathname;
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (token === localStorage.getItem("token")) {
       dispatch(getToken(localStorage.getItem("token")));
@@ -21,7 +22,7 @@ const Nav = () => {
         dispatch(getFirstName(obj.firstName));
       })
     }
-  })
+  });
 
   return (
     <>
@@ -31,10 +32,10 @@ const Nav = () => {
                                   src={argentBankLogo}
                                   alt="Argent Bank Logo"  /><h1 className="sr-only">Argent Bank</h1></NavLink>
         <div>
-          { token === null &&
+          { token === null && location !== "/SignIn" &&
             <>
               <NavLink  className="main-nav-item"
-                        to="/Signin"><i className="fa fa-user-circle"></i>Sign In</NavLink>
+                        to="/SignIn"><i className="fa fa-user-circle"></i>Sign In</NavLink>
             </>
           }
           { token !== null &&
@@ -42,7 +43,7 @@ const Nav = () => {
               <NavLink  className="main-nav-item"
                         to="/User"><i className="fa fa-user-circle"></i>{firstName}</NavLink>
               <NavLink  className="main-nav-item"
-                        href="./index.html"><i className="fa fa-sign-out"></i>Sign Out</NavLink>
+                        to="/SignOut"><i className="fa fa-sign-out"></i>Sign Out</NavLink>
             </>
           }
         </div>

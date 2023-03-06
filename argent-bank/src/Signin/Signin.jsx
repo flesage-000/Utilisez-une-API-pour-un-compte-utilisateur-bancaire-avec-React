@@ -49,7 +49,7 @@ const Signin = () => {
     dispatch(getToken(token));
   }
 
-  if (token !== null || loginStatus === 200 || token === localStorage.getItem("token")) return <Navigate to="/User" />
+  if (token !== null || loginStatus === 200 || (localStorage.getItem("token") !== null && localStorage.getItem("token") === token)) return <Navigate to="/User" />
 
   return (
     <>
