@@ -5,36 +5,31 @@ import Nav from "../Components/Header";
 import Footer from "../Components/Footer";
 
 const Signin = () => {
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
-  const StoreLoginData = (data) => { console.log("storeLoginData", data, rememberMe);
-    // Tutorial => https://usehooks.com/useLocalStorage/
-    const [storedValue, setStoredValue] = useState(() => {
-      try {
-        // Get from local storage by key
-        const item = window.localStorage.getItem(key);
-        // Parse stored json or if none return initialValue
-        return JSON.parse(item);
-      } catch(error) {
-        // If error also return initialeValue
-        console.log("error", error)
-      }
-    })
-  }
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split(".")[1]));
+    } catch (e) {
+      return null;
+    }
+  };
 
   const login = (event) => {
     event.preventDefault()
 
     // Required forms aren't fill.
-    if (!userName || !password) return;
+    if (!email || !password) return;
 
-    const loginStatus = getLogin({'email': userName, 'password': password});
+    const loginStatus = getLogin({'email': email, 'password': password});
     loginStatus.then(obj => {
-      if (obj.status == 200) {
-        console.log("Connecté !")
-        // StoreLoginData(obj);
+      if (obj.status == 200) { console.log("obj", obj, parseJwt(obj.token));
+        localStorage.setItem('email', email);
+        localStorage.setItem('token', obj.token);
+        localStorage.setItem('token_expiration', parseJwt(obj.token));
+        localStorage.setItem('rememberMe', rememberMe);
       } else {
         console.log("Pas connecté !")
       }
@@ -54,10 +49,10 @@ const Signin = () => {
           <form>
 
             <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="email">Email</label>
               <input  type="text"
-                      id="username"
-                      onInput={e => setUserName(e.target.value)}
+                      id="email"
+                      onInput={e => setEmail(e.target.value)}
                       required />
             </div>
             <div className="input-wrapper">

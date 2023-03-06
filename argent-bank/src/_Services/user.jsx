@@ -12,6 +12,7 @@ export const getLogin = async (identifiers) => {
         const obj = {
           status: data.status,
           message: data.message,
+          // name: identifiers.email,
           token: data.body.token
         }
         return obj;
