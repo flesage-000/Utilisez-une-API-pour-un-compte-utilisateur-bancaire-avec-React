@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useSelector } from "react";
 import { getToken } from "../_Services/token";
-import { getFirstName } from "../_Services/firstname";
+import { getFirstName } from "../_Services/firstName";
 import { Navigate } from "react-router-dom";
 
 

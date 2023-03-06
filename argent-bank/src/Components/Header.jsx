@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getToken } from "../_Services/token";
 import { getLoginFetch } from "../_Services/user";
-import { getFirstName } from "../_Services/firstname";
+import { getFirstName } from "../_Services/firstName";
+import { getLastName } from "../_Services/lastName";
 
 import argentBankLogo from "./../Assets/images/argentBankLogo.png";
 
@@ -20,6 +21,7 @@ const Nav = () => {
       const user = getLoginFetch(token);
       user.then(obj => {
         dispatch(getFirstName(obj.firstName));
+        dispatch(getLastName(obj.lastName));
       })
     }
   });
