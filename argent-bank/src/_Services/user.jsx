@@ -60,7 +60,7 @@ export const getLoginFetch = async (token) => {
   return loginFetchResponse;
 }
 
-export const setProfile = async (token, firstName, lastName) => { console.log("setFirstName", token, firstName);
+export const setProfile = async (token, firstName, lastName) => {
   const URL_API = "http://localhost:3001/api/v1/user/profile";
 
   const putFirstName = await fetch(URL_API, {
@@ -75,7 +75,7 @@ export const setProfile = async (token, firstName, lastName) => { console.log("s
     })
   })
   .then((response) => response.json())
-  .then((data) => data.status);
+  .then((data) => { return data.status });
 
   return putFirstName;
 }

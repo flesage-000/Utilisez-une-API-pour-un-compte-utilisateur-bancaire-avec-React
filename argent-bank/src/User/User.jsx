@@ -15,17 +15,33 @@ const User = () => {
   const [firstNameEdit, setFirstNameEdit] = useState(firstName);
   const lastName = useSelector((state) => state.lastName.value);
   const [lastNameEdit, setLastNameEdit] = useState(lastName);
+  const [changeProfileErrorMessage, setChangeProfileErrorMessage] = useState(false)
   const token = useSelector((state) => state.token.value);
 
   const editName = () => { setEditionName(true); }
   const editProfileCancel = () => { setEditionName(false); }
 
   const dispatch = useDispatch();
-  const editProfileSave = () => {
+  const editProfileSave = async (event) => {
+    event.preventDefault();
     if (firstNameEdit || lastNameEdit) {
-      setProfile(token, firstNameEdit, lastNameEdit);
-      dispatch(getFirstName(firstNameEdit))
-      dispatch(getLastName(lastNameEdit))
+      let newFirstName = '';
+      firstNameEdit ? newFirstName = firstNameEdit : newFirstName = firstName;
+      let newLastName = '';
+      lastNameEdit ? newLastName = lastNameEdit : newLastName = lastName;
+
+      const profile = await setProfile(token, newFirstName, newLastName);
+      if (profile === 200) {
+        dispatch(getFirstName(newFirstName));
+        dispatch(getLastName(newLastName));
+        // Remove edit profile form
+        setEditionName(false);
+        // In case of error message, set display of error message to false
+        if (changeProfileErrorMessage) setChangeProfileErrorMessage(false);
+      } else {
+        // In case of error message, set display of error message to true
+        setChangeProfileErrorMessage(true);
+      }
     }
   }
 
@@ -48,13 +64,14 @@ const User = () => {
                   <input  type="text"
                           id="firstName"
                           onChange={e => setFirstNameEdit(e.target.value)}
-                          required
                           placeholder={firstName} />
                   <input  type="text"
                           id="lastName"
                           onChange={e => setLastNameEdit(e.target.value)}
-                          required
                           placeholder={lastName} />
+                  { changeProfileErrorMessage &&
+                    <small>Une erreur est survenue lors de la mise à jour de vos informations.</small>
+                  }
                 </div>
                 <div  className="input-wrapper">
                   <button className="save-button"

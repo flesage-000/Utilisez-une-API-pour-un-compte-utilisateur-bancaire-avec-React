@@ -278,8 +278,14 @@ body {
 
 .header .input-wrapper {
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 10px;
+}
+.header small {
+  color: red;
+  text-align: center;
+  width: 100%;
 }
 .header button {
   width: 100px;
