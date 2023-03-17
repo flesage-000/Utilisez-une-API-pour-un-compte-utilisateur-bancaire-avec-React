@@ -8,6 +8,9 @@ import Footer from "../Components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 
 const Signin = () => {
+  // For easy write/read script
+  const ls = localStorage;
+  const loginAuto = ls.getItem("rememberMe") || false;
   const [loginStatus, setLoginStatus] = useState(0);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,33 +26,61 @@ const Signin = () => {
       return null;
     }
   };
-
-  const login = (event) => {
-    event.preventDefault()
-
-    // Required forms aren't fill.
-    if (!email || !password) return;
-
-    const login = getLogin({'email': email, 'password': password});
-    login.then(obj => {
+  /**
+   * login function
+   */
+  const login = () => {
+    const loginPromise = getLogin({'email': email, 'password': password});
+    loginPromise.then(obj => {
       if (obj.status === 200) {
         setLoginStatus(obj.status);
-        addToken(obj.token);
+        loginSet(obj.token);
       } else {
-        console.log("Pas connecté !")
+        console.Warn("Erreur lors de la connection !")
       }
     })
   }
+  /**
+   * When user use login form
+   * @param {object} event
+   * @returns
+   */
+  const loginForm = (event) => { console.log("event", typeof event)
+    event.preventDefault()
+    // Required forms aren't fill.
+    if (!email || !password) return;
 
+    login();
+  }
+  /**
+   * Set login localStorage
+   */
+  const setLocalStorage = (token) => { console.log("setLocalStorage", token, rememberMe, email, password)
+    // Clear localStorage
+    ls.clear();
+    // Set localStorage
+    ls.setItem("token", token);
+    ls.setItem('token_expiration', parseJwt(token).exp);
+    ls.setItem("rememberMe", rememberMe)
+    if (rememberMe) {
+      ls.setItem("email", email);
+      ls.setItem("password", password);
+    }
+  }
   const dispatch = useDispatch();
-  const addToken = (token) => {
-    localStorage.setItem("token", token);
-    localStorage.setItem('token_expiration', parseJwt(token).exp);
-    localStorage.setItem("rememberMe", rememberMe)
+  /**
+   * When login informations are OK, we add them to redux and localStorage
+   * @param {string} token
+   */
+  const loginSet = (token) => { console.log("loginSet::token", token, typeof token)
+    setLocalStorage(token);
     dispatch(getToken(token));
   }
 
-  if (token !== null || loginStatus === 200 || (localStorage.getItem("token") !== null && localStorage.getItem("token") === token)) return <Navigate to="/User" />
+  // If user already connected
+  if (token !== null || loginStatus === 200 || (ls.getItem("token") !== null && ls.getItem("token") === token)) return <Navigate to="/User" />
+  // If user ask "rememberMe"
+  if (ls.getItem("rememberMe") === true) login();
 
   return (
     <>
@@ -61,32 +92,39 @@ const Signin = () => {
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
 
-          <form>
+          { loginAuto === "true" &&
+            <p>
+              Automatic login in progress, please wait.
+            </p>
+          }
+          { loginAuto === "false" &&
+            <form>
 
-            <div className="input-wrapper">
-              <label htmlFor="email">Email</label>
-              <input  type="text"
-                      id="email"
-                      onInput={e => setEmail(e.target.value)}
-                      required />
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="password">Password</label>
-              <input  type="password"
-                      id="password"
-                      onInput={e => setPassword(e.target.value)}
-                      required />
-            </div>
-            <div className="input-remember">
-              <input  type="checkbox"
-                      id="remember-me"
-                      onChange={e => setRememberMe(e.target.checked)} />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
-            <button className="sign-in-button"
-                    onClick={login}>Sign In</button>
+              <div className="input-wrapper">
+                <label htmlFor="email">Email</label>
+                <input  type="text"
+                        id="email"
+                        onInput={e => setEmail(e.target.value)}
+                        required />
+              </div>
+              <div className="input-wrapper">
+                <label htmlFor="password">Password</label>
+                <input  type="password"
+                        id="password"
+                        onInput={e => setPassword(e.target.value)}
+                        required />
+              </div>
+              <div className="input-remember">
+                <input  type="checkbox"
+                        id="remember-me"
+                        onChange={e => setRememberMe(e.target.checked)} />
+                <label htmlFor="remember-me">Remember me</label>
+              </div>
+              <button className="sign-in-button"
+                      onClick={loginForm}>Sign In</button>
 
-          </form>
+            </form>
+          }
 
         </section>
       </main>
