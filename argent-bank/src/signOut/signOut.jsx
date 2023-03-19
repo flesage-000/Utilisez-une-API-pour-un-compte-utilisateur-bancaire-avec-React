@@ -1,11 +1,13 @@
 import { useDispatch } from "react-redux";
-import { useEffect, useSelector } from "react";
+import { useEffect } from "react";
 import { getToken } from "../_Services/token";
 import { getFirstName } from "../_Services/firstName";
 import { Navigate } from "react-router-dom";
 
 
 function SignOut() {
+    // For easy write/read script
+    const ls = localStorage;
     const dispatch = useDispatch();
     // const token = useSelector((state) => state.token.value);
 
@@ -13,9 +15,12 @@ function SignOut() {
         dispatch(getToken(null));
         dispatch(getFirstName(""));
 
-        localStorage.removeItem("token");
+        if(ls.getItem("rememberMe")) {
+            ls.clear();
+        } else {
+            ls.removeItem("token");
+        }
     });
-
 
     // Redirection
     return <Navigate to="/" />

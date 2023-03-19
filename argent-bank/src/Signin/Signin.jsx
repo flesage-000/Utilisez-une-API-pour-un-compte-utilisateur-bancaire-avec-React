@@ -92,12 +92,12 @@ const Signin = () => {
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
 
-          { loginAuto === "true" &&
+          { loginAuto === true &&
             <p>
               Automatic login in progress, please wait.
             </p>
           }
-          { loginAuto === "false" &&
+          { loginAuto === false &&
             <form>
 
               <div className="input-wrapper">
