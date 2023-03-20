@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { useDispatch, useEffect, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getFirstName } from "../_Services/firstName";
 import { getLastName } from "../_Services/lastName";
-import { getToken } from "../_Services/token";
+// import { getToken } from "../_Services/token";
 import { setProfile } from "../_Services/user";
 
 import Nav from "../Components/Header";
 import Footer from "../Components/Footer";
 
 const User = () => {
+  // For easy write/read script
+  const ls = localStorage;
+  const tokenExpiration = ls.getItem("token_expiration") * 1;
+  const rememberMe = ls.getItem("rememberMe");
+
   const [editionName, setEditionName] = useState(false);
   const firstName = useSelector((state) => state.firstName.value);
   const [firstNameEdit, setFirstNameEdit] = useState(firstName);
@@ -44,6 +50,11 @@ const User = () => {
       }
     }
   }
+
+  // Users whose token has expired and who have requested to be remembered are redirected to the login page for automatic reconnection
+  if(rememberMe === "true" && tokenExpiration * 1 > Date.now()) return <Navigate to="/SignIn" />
+  // Users whose token has expired and who have requested not to be remembered are sent to the homepage
+  else if(!ls.getItem("token") || ls.getItem("token") > Date.now()) return <Navigate to="/" />
 
   return(
     <>
