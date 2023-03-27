@@ -23,6 +23,7 @@ export const getLogin = async (identifiers) => {
         return obj;
       }
     });
+  // console.clear();
   return loginResponse;
 }
 
@@ -56,6 +57,7 @@ export const getLoginFetch = async (token) => {
       return obj;
     }
   });
+  console.clear();
 
   return loginFetchResponse;
 }
@@ -76,6 +78,7 @@ export const setProfile = async (token, firstName, lastName) => {
   })
   .then((response) => response.json())
   .then((data) => { return data.status });
+  console.clear();
 
   return putFirstName;
 }

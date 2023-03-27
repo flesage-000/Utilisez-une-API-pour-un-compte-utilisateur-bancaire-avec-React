@@ -36,7 +36,7 @@ const Signin = () => {
         setLoginStatus(obj.status);
         loginSet(obj.token);
       } else {
-        console.Warn("Erreur lors de la connection !")
+        console.warn("Erreur lors de la connection !")
       }
     })
   }
@@ -45,7 +45,7 @@ const Signin = () => {
    * @param {object} event
    * @returns
    */
-  const loginForm = (event) => { console.log("event", typeof event)
+  const loginForm = (event) => {
     event.preventDefault()
     // Required forms aren't fill.
     if (!email || !password) return;
