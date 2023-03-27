@@ -9,6 +9,7 @@ Projet #13 de la formation développeur d'application Javascript React
 ## Installation
 
 - Cloner le projet [Utiliser une API pour un compte bancaire avec React](https://github.com/flesage-000/Utilisez-une-API-pour-un-compte-utilisateur-bancaire-avec-React/tree/main/argent-bank).
+- Dans le dossier du projet executer la commande `npm install`.
 
 ## Démarrage
 
