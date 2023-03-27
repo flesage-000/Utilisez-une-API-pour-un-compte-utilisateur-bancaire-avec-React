@@ -14,3 +14,13 @@ Projet #13 de la formation développeur d'application Javascript React
 ## Démarrage
 
 Dans le dossier du projet taper `npm start`. S'assurer que le projet fonctionne sur le port 3000.
+
+## Informations de connection
+
+Deux comptes sont disponibles au login:
+1. Tony Stark:
+  - Email: tony@stark.com
+  - Password: password123
+2. Steve Rogers:
+  - Email: steve@rogers.com
+  - Password: password456
