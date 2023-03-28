@@ -55,7 +55,7 @@ const Signin = () => {
   /**
    * Set login localStorage
    */
-  const setLocalStorage = (token) => { console.log("setLocalStorage", token, rememberMe, email, password)
+  const setLocalStorage = (token) => {
     // Clear localStorage
     ls.clear();
     // Set localStorage
@@ -72,7 +72,7 @@ const Signin = () => {
    * When login informations are OK, we add them to redux and localStorage
    * @param {string} token
    */
-  const loginSet = (token) => { console.log("loginSet::token", token, typeof token)
+  const loginSet = (token) => {
     setLocalStorage(token);
     dispatch(getToken(token));
   }

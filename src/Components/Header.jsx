@@ -16,13 +16,16 @@ const Nav = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (token === localStorage.getItem("token")) {
-      dispatch(getToken(localStorage.getItem("token")));
-      const user = getLoginFetch(token);
-      user.then(obj => {
-        dispatch(getFirstName(obj.firstName));
-        dispatch(getLastName(obj.lastName));
-      })
+    // eslint-disable-next-line
+    if (localStorage.getItem("token") != null || localStorage.getItem("token") != undefined) {
+      if (token === localStorage.getItem("token")) {
+        dispatch(getToken(localStorage.getItem("token")));
+        const user = getLoginFetch(token);
+        user.then(obj => {
+          dispatch(getFirstName(obj.firstName));
+          dispatch(getLastName(obj.lastName));
+        })
+      }
     }
   });
 
